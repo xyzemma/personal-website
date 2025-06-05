@@ -2,9 +2,11 @@ from flask import Flask, render_template
 import json
 from github import Github
 from github import Auth
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 envfile = open("backend/env.json","r")
 envcontent = json.loads(envfile.read())
 auth = Auth.Token(envcontent["getghtoken"])
@@ -21,18 +23,21 @@ class repodata():
 def getrepos():
     repolist = []
     for repo in gh.get_user().get_repos():
-        name = repo.name
-        description = repo.description
-        if not repo.license == None:
-            lic = str(repo.license)[14:-2]
+        if repo.visibility == "public":
+            name = repo.name
+            description = repo.description
+            if not repo.license == None:
+                lic = str(repo.license)[14:-2]
+            else:
+                lic = "Unspecified License"
+            owner = str(repo.owner)[17:-2]
+            url = f"https://github.com/{owner}/{name}"
+            lang = repo.language
+            repolist.append(repodata(name,description,lic,owner,url,lang))
         else:
-            lic = "Unspecified"
-        owner = str(repo.owner)[17:-2]
-        url = f"https://github.com/{owner}/{name}"
-        lang = repo.language
-        repolist.append(repodata(name,description,lic,owner,url,lang))
+            continue
     return repolist
-@app.route('/getgithub')
+@app.route('/getgithub',methods=['GET'])
 def getgithub():
     repos = getrepos()
     repols = []
@@ -47,5 +52,6 @@ def getgithub():
         }
         repols.append(rdict)
     repojson = json.dumps(repols)
+    return repojson
 if __name__ == '__main__':
     app.run(debug=True)
