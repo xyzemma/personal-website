@@ -1,10 +1,39 @@
 body {
     text-align: center;
+    background-color: #202020;
+    color: white;
 }
-.essaycontainer1 {
-    border-radius: 5%;
-    background-color: cyan;
-    width: 500px;
-    height: 450px;
+.repobox {
+    border-radius: 30px;
+    background-color: #ffff;
+    width: 90%;
+    height: 200px;
     margin: auto;
+    color: #0000;
+}
+
+.rbtext {
+    color: black;
+    text-align: left;
+}
+
+.rblink {
+    color: blue;
+    margin: auto;
+    text-align: left;
+}
+
+.rbpfp {
+    float: right;
+    width: 12%;
+    transform: translate(-25%, -107%);
+    border-radius: 30px;
+}
+
+.rbtextdiv {
+    margin-left: 3%;
+    display: block;
+    padding-top: 8px;
+    margin-top: 3%;
+    font-family: Arial, Helvetica, sans-serif;
 }

@@ -1,3 +1,4 @@
 flask
 PyGithub
 flask-cors
+beautifulsoup4
