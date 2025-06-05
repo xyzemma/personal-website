@@ -1,0 +1,10 @@
+body {
+    text-align: center;
+}
+.essaycontainer1 {
+    border-radius: 5%;
+    background-color: cyan;
+    width: 500px;
+    height: 450px;
+    margin: auto;
+}
